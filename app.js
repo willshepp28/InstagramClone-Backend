@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 */
 application.use(morgan("dev"));
 application.use(bodyParser.json());
+application.use(bodyParser.urlencoded({ extended: true }));
 
 application.get("/", (request, response) => {
     response.json("You are visiting the main page of Instagram Clone V2");
@@ -21,5 +22,5 @@ application.get("/", (request, response) => {
 
 
 application.listen(PORT, (request, response) => {
-    response.json(`Server listening on PORT: ${PORT}`)
+    console.log(`Server listening on PORT: ${PORT}`)
 });
