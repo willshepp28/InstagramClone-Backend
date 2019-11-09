@@ -24,7 +24,7 @@ This is my own version of Instagram.
 
 ## Database Schema
 
-[](https://instagram-clone-2019.s3.amazonaws.com/erd-diagram/Instagram-Clone-Erd-Diagram.jpeg)
+![Database design](https://instagram-clone-2019.s3.amazonaws.com/erd-diagram/Instagram-Clone-Erd-Diagram.jpeg)
 
 
   ## Requirements
