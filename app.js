@@ -6,7 +6,7 @@ const State = require("./app/state")(application);
 const sequelize = require("./db/models/index");
 const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
-// const Models = require("./db/config/model_initializer")(application);
+
 const passport = require("passport");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -36,9 +36,6 @@ application.set("Models", require("./db/config/model_initializer")(application))
 // application.set('dataTypes', dataTypes);
 
 application.get("/", (request, response) => {
-    // console.log(request.state);
-    // console.log(sequelize)
-    // console.log(Sequelize)
     const ORM = request.state.application.get("ORM");
     response.json("Sequelize")
 });
