@@ -2,8 +2,15 @@ const express = require("express");
 const application = express();
 
 const bodyParser = require("body-parser");
+const State = require("./app/state")(application);
+const sequelize = require("./db/models/index");
+const DataTypes = require('sequelize');
+DataTypes.validator = require("validator");
+// const Models = require("./db/config/model_initializer")(application);
+const passport = require("passport");
 const morgan = require("morgan");
-const PORT = process.env.PORT || 3000;
+const cors = require("cors");
+const PORT = process.env.PORT || 4000;
 
 
 
@@ -12,12 +19,28 @@ const PORT = process.env.PORT || 3000;
 |  Middleware
 |--------------------------------------------------------------------------
 */
+
+application.use(State.initialize);
 application.use(morgan("dev"));
 application.use(bodyParser.json());
-application.use(bodyParser.urlencoded({ extended: true }));
+application.use(bodyParser.urlencoded({ extended: false }));
+
+
+application.use(passport.initialize())
+application.use(cors());
+
+application.set('ORM', sequelize.sequelize);
+application.set("DataTypes", DataTypes);
+application.set("Models", require("./db/config/model_initializer")(application));
+
+// application.set('dataTypes', dataTypes);
 
 application.get("/", (request, response) => {
-    response.json("You are visiting the main page of Instagram Clone V2");
+    // console.log(request.state);
+    // console.log(sequelize)
+    // console.log(Sequelize)
+    const ORM = request.state.application.get("ORM");
+    response.json("Sequelize")
 });
 
 

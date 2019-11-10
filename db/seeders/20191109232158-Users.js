@@ -4,6 +4,12 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    // let data = [];
+    // let amount = 25;
+
+    // while(amout--){
+
+    // }
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
