@@ -29,15 +29,16 @@ module.exports = {
         allowNull: false
       },
       profile_pic: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/7104608081548233620-256.png"
       },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
