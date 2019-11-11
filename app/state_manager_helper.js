@@ -1,10 +1,12 @@
 
+const _ = require("lodash");
+
 
 const cloneStateManager = function(state, model, parameters){
 
     const clone = {};
 
-    clone.modelName = model;
+    clone.modelName = _.cloneDeep(model);
     clone.application = state.application;
 
     if (state.params) {

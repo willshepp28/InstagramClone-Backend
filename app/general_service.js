@@ -1,17 +1,29 @@
+const _ = require("lodash");
+
+
+
 
 const create = function(state, callback){
 
 }
 
+// const findById = function(state, callback){
+//     const where = _.merge(state.queryParams, state.where);
+//     state.model.findOne({where}).then((results) => {
+//         callback(null, results.dataValues)
+//     })
+//     .catch(error => {throw new Error(error)})
+// };
+
+
 const findById = function(state, callback){
-    state.model.findOne().asCallback((error, data) => {
-        if(error){
-            return error;
-        } else {
-            state.obj = obj;
-        }
+    const where = _.merge(state.queryParams, state.where);
+    state.model.findOne({where}).then((data) => {
+        callback(null, data);
     })
-    callback()
+    .catch((error) =>{
+        callback(error);
+    })
 };
 
 
@@ -26,15 +38,15 @@ const query = function(){
 
 const update = function(){
     state.model.update().asCallback(() => {
-        
+
     })
 }
 
 
-return {
+module.exports = {
     create,
     findById,
     findOne,
     query,
-    udpate
+    update
 }
