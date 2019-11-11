@@ -10,7 +10,6 @@ class ErrorHandler extends Error{
 
 const HandleError = (error, response) => {
     const { statusCode, message } = error;
-    // response.status(statusCode).json({ status: "error", statusCode, message});
     response.json("YOU have no user")
 }
 

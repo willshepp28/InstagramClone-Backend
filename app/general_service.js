@@ -7,14 +7,6 @@ const create = function(state, callback){
 
 }
 
-// const findById = function(state, callback){
-//     const where = _.merge(state.queryParams, state.where);
-//     state.model.findOne({where}).then((results) => {
-//         callback(null, results.dataValues)
-//     })
-//     .catch(error => {throw new Error(error)})
-// };
-
 
 const findById = function(state, callback){
     const where = _.merge(state.queryParams, state.where);
