@@ -2,6 +2,7 @@ const express = require("express");
 const application = express();
 
 const bodyParser = require("body-parser");
+const _ = require("lodash");
 const State = require("./app/state")(application);
 const sequelize = require("./db/models/index");
 const DataTypes = require('sequelize');
@@ -31,12 +32,11 @@ application.use(cors());
 
 application.set('ORM', sequelize.sequelize);
 application.set("DataTypes", DataTypes);
-application.set("Models", require("./db/config/model_initializer")(application));
+application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequelize"]));
 
-// application.set('dataTypes', dataTypes);
+
 
 application.get("/", (request, response) => {
-    const ORM = request.state.application.get("ORM");
     response.json("Sequelize")
 });
 
