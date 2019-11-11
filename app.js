@@ -3,7 +3,8 @@ const application = express();
 
 const bodyParser = require("body-parser");
 const _ = require("lodash");
-const State = require("./app/state")(application);
+const StateManager = require("./app/state_manager")(application);
+const StateHelper = require("./app/state_manager_helper");
 const sequelize = require("./db/models/index");
 const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
@@ -21,7 +22,7 @@ const PORT = process.env.PORT || 4000;
 |--------------------------------------------------------------------------
 */
 
-application.use(State.initialize);
+application.use(StateManager.initialize);
 application.use(morgan("dev"));
 application.use(bodyParser.json());
 application.use(bodyParser.urlencoded({ extended: false }));
@@ -36,7 +37,9 @@ application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequeliz
 
 
 
-application.get("/", (request, response) => {
+application.get("/:id", (request, response) => {
+    const state = request.state;
+    const UserState = StateHelper.cloneStateManager(state, "Users", {});
     response.json("Sequelize")
 });
 
