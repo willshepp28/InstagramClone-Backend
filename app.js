@@ -39,7 +39,7 @@ application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequeliz
 
 application.get("/:id", (request, response) => {
     const state = request.state;
-    const UserState = StateHelper.cloneStateManager(state, "Users", {});
+    const UserState = StateHelper.cloneStateManager(state, "User", {});
     response.json("Sequelize")
 });
 
