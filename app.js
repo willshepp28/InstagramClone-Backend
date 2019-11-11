@@ -10,6 +10,7 @@ const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
 
 const { ErrorHandler, HandleError } = require("./app/error_handler");
+const ResponseHandler = require("./app/response_handler");
 const GeneralService = require("./app/general_service");
 const passport = require("passport");
 const morgan = require("morgan")
@@ -24,15 +25,7 @@ const PORT = process.env.PORT || 4000;
 |--------------------------------------------------------------------------
 */
 
-// process.on('uncaughtException', function(error) {
-//     console.log('Unhandled Exception ', error, ' at time ', new Date());
-//     console.log(error.stack);
 
-//   });
-//   process.on('unhandledRejection', function(reason, p) {
-//     console.log('Possibly Unhandled Rejection at: Promise ', p, ' reason: ', reason, ' at time: ', new Date());
-//     console.log(reason.stack);
-//   });
 
 application.use(StateManager.initialize);
 application.use(morgan("dev"));
@@ -41,20 +34,22 @@ application.use(bodyParser.urlencoded({ extended: false }));
 
 
 application.use(passport.initialize())
-// application.use(cors());
+application.use(cors());
 
 application.set('ORM', sequelize.sequelize);
 application.set("DataTypes", DataTypes);
 application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequelize"]));
 
-var count = 0;
 
 
 application.get('/favicon.ico', (request, response) => {
     response.status(204)
 });
 
-application.get("/:id", (request, response) => {
+
+
+// Get a User by id
+application.get("/User/:id", (request, response) => {
     const state = request.state;
     const UserState = StateHelper.cloneStateManager(state, "User", {
         queryParams: {
@@ -62,32 +57,16 @@ application.get("/:id", (request, response) => {
         }
     });
 
-    GeneralService.findById(UserState, function(err, results) {
-        if(err){
-            return response.status(404).json({message: error})
+    GeneralService.findById(UserState, function(error) {
+        if(error){
+            ResponseHandler.handleResponse(error)
         }
-        return response.status(200).json(results)
+        ResponseHandler.handleResponse(null, UserState)
     })
    
 });
 
 
-// application.all('*',(err, request, response, next) => {
-//     console.log("The error handler is called")
-//     HandleError(err, response)
-//     next();
-// });
-
-// application.use((error, request, response, next) => {
-//     console.log("error")
-//     response.json({ message: error.message})
-// });
-
-// application.use(function(error, request, response, next){
-//     console.log("YOu have a error")
-//     response.json(error)
-//     // HandleError(error, response)
-// })
 
 
 application.listen(PORT, (request, response) => {

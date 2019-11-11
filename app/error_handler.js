@@ -14,7 +14,13 @@ const HandleError = (error, response) => {
     response.json("YOU have no user")
 }
 
+
+const serverError = new ErrorHandler(500, "Internal Server Error");
+const resouceNotFound = new ErrorHandler(404, "Resouce Not Found");
+
 module.exports = {
     ErrorHandler,
-    HandleError
+    HandleError,
+    serverError,
+    resouceNotFound
 }

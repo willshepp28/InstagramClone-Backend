@@ -8,6 +8,7 @@ const cloneStateManager = function(state, model, parameters){
 
     clone.modelName = _.cloneDeep(model);
     clone.application = state.application;
+    clone.response = state.response;
 
     if (state.params) {
         clone.params = state.params;
