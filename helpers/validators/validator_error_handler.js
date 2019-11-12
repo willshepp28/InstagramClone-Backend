@@ -21,7 +21,7 @@ const getValidationError = (error) => {
             break;
         case "\"email\" is not allowed to be empty":
             return inputNullError("email")
-            breadk;
+            break;
         case "\"username\" is not allowed to be empty":
             return inputNullError("username");
             break;
