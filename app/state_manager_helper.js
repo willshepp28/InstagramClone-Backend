@@ -18,6 +18,7 @@ const cloneStateManager = function(state, model, parameters){
         clone.model = state.application.get("Models")[model]
     }
 
+    clone.data = parameters.data || {};
     clone.queryParams = parameters.queryParams || {};
     clone.where = parameters.where || {};
     clone.include = parameters.include;

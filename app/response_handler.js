@@ -6,10 +6,10 @@ const handleResponse = (error, state) => {
         error = ErrorHandler.serverError;
     }
 
-    const statusCode = error ? error.statusCode: 200;
+    const statusCode = error ? error.httpStatusCode: 200;
     const data = error? error.message :state.obj;
 
-    state.response.status(statusCode).json({message: data})
+    state.response.status(statusCode).json(data)
 }
 
 

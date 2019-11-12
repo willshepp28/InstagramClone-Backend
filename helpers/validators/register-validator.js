@@ -10,8 +10,8 @@ const registerSchema = Joi.object({
 })
 
 
-const validateSchema = async (firstName, lastName, email, username, password, confirmPassword) => {
-    return {error, value} = registerSchema.validate({
+const validateSchema = async (firstName, lastName, email, username, password, confirmPassword, callback) => {
+    const {error, value} = registerSchema.validate({
         first_name: firstName,
         last_name: lastName,
         email: email,
@@ -19,6 +19,9 @@ const validateSchema = async (firstName, lastName, email, username, password, co
         password: password,
         confirmPassword: confirmPassword
     });
+
+    callback(null, {error, value})
+
 }
 
 module.exports = {registerSchema, validateSchema};

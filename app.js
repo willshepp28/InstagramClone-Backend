@@ -26,7 +26,9 @@ const PORT = process.env.PORT || 4000;
 |--------------------------------------------------------------------------
 */
 
-
+process.on('unhandledRejection', error => {
+    console.log(error)
+});
 
 application.use(StateManager.initialize);
 application.use(morgan("dev"));
