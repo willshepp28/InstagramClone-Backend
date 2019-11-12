@@ -9,7 +9,13 @@ const BundleServices = function(application){
     function getServicesFiles(path){
         fs.readdirSync(path).forEach(function(file) {
             const serviceFile = `${path}/${file}`; 
-            services[require(serviceFile).name] = require(serviceFile)(application);
+
+            try {
+                services[require(serviceFile).name] = require(serviceFile)(application);
+            } catch(error){
+                console.log(error);
+            }
+            
         })
     }
 
