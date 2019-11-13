@@ -7,7 +7,7 @@
 
 This is the API to Instagram Clone V2.
 
-[Click here to visit the client-side repository](https://github.com/willshepp28/IGclone_frontend)
+[Click here to visit the client-side repository](https://github.com/willshepp28/InstagramCloneV2-Frontend)
 
 
 ---
