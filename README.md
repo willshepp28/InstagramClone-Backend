@@ -5,7 +5,9 @@
 
 **What is this?** 
 
-This is my own version of Instagram.
+This is the API to Instagram Clone V2.
+
+[Click here to visit the client-side repository](https://github.com/willshepp28/IGclone_frontend)
 
 
 ---
