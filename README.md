@@ -5,7 +5,7 @@
 
 **What is this?** 
 
-This is the API to Instagram Clone V2.
+[Click here to visit Instagram Clone V2 website live](http://instagram-v2.s3-website-us-east-1.amazonaws.com/accounts/emailsignup)
 
 [Click here to visit the client-side repository](https://github.com/willshepp28/InstagramCloneV2-Frontend)
 
