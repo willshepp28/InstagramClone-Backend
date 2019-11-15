@@ -23,4 +23,8 @@ async function comparePasswordtoHash(password){
 
 
 
-module.exports = {hashManyPasswords};
+module.exports = {
+  hashManyPasswords,
+  hashPassword,
+  comparePasswordtoHash
+};
