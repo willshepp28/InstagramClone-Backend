@@ -13,11 +13,8 @@ const inputDoesntMeetMinimumRequirements = (input) => {
 
 const getValidationError = (error) => {
     switch(error.message) {
-        case "\"first_name\" is not allowed to be empty":
-            return inputNullError("first name");
-            break;
-        case "\"last_name\" is not allowed to be empty":
-            return inputNullError("last name")
+        case "\"fullName\" is not allowed to be empty":
+            return inputNullError("Full name");
             break;
         case "\"email\" is not allowed to be empty":
             return inputNullError("email")
@@ -31,11 +28,8 @@ const getValidationError = (error) => {
         case "\"confirmPassword\" s not allowed to be empty":
             return inputNullError("password confirmation");
             break;
-        case "\"first_name\" length must be at least 3 characters long":
-            return inputDoesntMeetMinimumRequirements("first name");
-            break;
-        case "\"last_name\" length must be at least 3 characters long":
-            return inputDoesntMeetMinimumRequirements("last name");
+        case "\"fullName\" length must be at least 3 characters long":
+            return inputDoesntMeetMinimumRequirements("Full name");
             break;
         case "\"confirmPassword\" must be [ref:password]":
             return PasswordDoesntMatch;
