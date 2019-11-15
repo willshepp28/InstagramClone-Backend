@@ -16,12 +16,13 @@ const { getValidationError } = require("../helpers/validators/validator_error_ha
 router.post("/register", (request, response) => {
   const state = request.state;
   const services = state.application.get("Services");
+  const params = request.body;
 
   const tasks = {
-    ValidateUserInput: async.apply(validateSchema, "iwi", "Bdfdsfae", "bob@gmail.com", "bob222", "theworld", "theworld"),
+    ValidateUserInput: async.apply(validateSchema, params.email, params.fullName, params.username, params.password),
     ifValidThenRegisterUser: ['ValidateUserInput',(results, callback) => {
       if(results.ValidateUserInput.error) { 
-        callback(true)
+        callback({name: "Validation Error"})
         return;
       }
       services.Authentication.register(cloneStateManager(state, "User", {
@@ -31,9 +32,13 @@ router.post("/register", (request, response) => {
   }
 
   async.auto(tasks, (error, results) => {
-    if(error){
+    if(error && error.name === "Validation Error"){
       ResponseHelper.handleResponse(getValidationError(results.ValidateUserInput.error), state);
       return;
+    }
+
+    if(error && error.name === "SequelizeDatabaseError"){
+      ResponseHelper.handleResponse(error, state);
     }
     ResponseHelper.handleResponse(null, results.ifValidThenRegisterUser);
   })
