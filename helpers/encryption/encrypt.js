@@ -7,8 +7,18 @@ const _ = require("lodash");
 
 async function hashManyPasswords(Users){
     _.map(Users, (user) => {
-      user.password = bcrypt.hashSync(user.password, parseInt(process.env.SALT_ROUNDS))
+      hashPassword(user.password).then((hash) => {
+          user.password = hash;
+        })
     });
+};
+
+async function hashPassword(password){
+  return bcrypt.hashSync(password, parseInt(process.env.SALT_ROUNDS))
+}
+
+async function comparePasswordtoHash(password){
+  return bcrypt.compareSync(password, hash)
 }
 
 

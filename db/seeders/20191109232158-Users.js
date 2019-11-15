@@ -10,8 +10,9 @@ const Users = [
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    hashManyPasswords(Users)
-    return queryInterface.bulkInsert("Users", Users)
+    return hashManyPasswords(Users).then(() => {
+      return queryInterface.bulkInsert("Users", Users)
+    })
   },
 
   down: (queryInterface, Sequelize) => {
