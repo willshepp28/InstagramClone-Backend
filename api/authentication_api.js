@@ -13,7 +13,7 @@ const { getValidationError } = require("../helpers/validators/validator_error_ha
  * 2. 
  */
 
-router.get("/register", (request, response) => {
+router.post("/register", (request, response) => {
   const state = request.state;
   const services = state.application.get("Services");
 

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require("express");
 const application = express();
 
@@ -13,7 +15,6 @@ const { ErrorHandler, HandleError } = require("./app/error_handler");
 const ResponseHandler = require("./app/response_handler");
 const GeneralService = require("./app/general_service");
 const authenticationAPI = require("./api/authentication_api");
-const passport = require("passport");
 const morgan = require("morgan")
 const cors = require("cors");
 const PORT = process.env.PORT || 4000;
@@ -36,7 +37,6 @@ application.use(bodyParser.json());
 application.use(bodyParser.urlencoded({ extended: false }));
 
 
-application.use(passport.initialize())
 application.use(cors());
 
 application.set('ORM', sequelize.sequelize);
@@ -70,7 +70,9 @@ application.get('/favicon.ico', (request, response) => {
    
 // });
 
-application.use("/authenticate", authenticationAPI);
+
+
+application.use("/api/authenticate", authenticationAPI);
 
 
 
