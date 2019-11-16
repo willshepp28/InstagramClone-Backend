@@ -4,6 +4,7 @@ const { registerSchema, validateSchema } = require("../helpers/validators/regist
 const ResponseHelper = require("../app/response_handler");
 const {cloneStateManager} = require("../app/state_manager_helper");
 const { getValidationError } = require("../helpers/validators/validator_error_handler")
+const { SequelizeUniqueContrainstError } = require("../app/error_handler");
 
 
 /**
@@ -40,6 +41,11 @@ router.post("/register", (request, response) => {
     if(error && error.name === "SequelizeDatabaseError"){
       ResponseHelper.handleResponse(error, state);
     }
+
+    if(error && error.name === "SequelizeUniqueConstraintError"){
+      ResponseHelper.handleResponse(SequelizeUniqueContrainstError, state)
+    }
+    
     ResponseHelper.handleResponse(null, results.ifValidThenRegisterUser);
   })
 })

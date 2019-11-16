@@ -2,7 +2,8 @@ const ErrorHandler = require("./error_handler");
 
 
 const handleResponse = (error, state) => {
-    if(error && !error.httpStatusCode || error.name) {
+    if(!state){ return;}
+    if(error && !error.httpStatusCode) {
         error = ErrorHandler.serverError;
     }
 
