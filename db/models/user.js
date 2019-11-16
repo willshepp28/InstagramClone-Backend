@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     profile_pic: DataTypes.STRING
   }, {
     hooks: {
-      afterValidate: (user) => {
-        user.password = hashPassword(user.password); 
+      beforeCreate: async (user) => {
+        user.password = await hashPassword(user.password)
       }
     }
   });
