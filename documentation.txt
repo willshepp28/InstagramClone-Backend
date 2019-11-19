@@ -1,0 +1,4 @@
+1. State is the single source of truth in our application.
+2. Our state object holds our application's, models, services, errors, ect.
+
+3.When we run a async task the first task should always be our state object.

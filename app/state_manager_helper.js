@@ -18,18 +18,19 @@ const cloneStateManager = function(state, model, parameters){
         clone.model = state.application.get("Models")[model]
     }
 
-    clone.data = parameters.data || {};
-    clone.queryParams = parameters.queryParams || {};
-    clone.where = parameters.where || {};
-    clone.include = parameters.include;
-    clone.limit = parameters.limit;
-    clone.offset = parameters.offset;
-    clone.meta = parameters.meta;
-    clone.errors = parameters.errors || [];
-    clone.orderBy = parameters.orderBy;
-    clone.order = parameters.order;
-    clone.orderProperty = parameters.orderProperty;
-    clone.orderDirection = parameters.orderDirection;
+    clone.data = _.get(parameters, 'data', {});
+    clone.queryParams = _.get(parameters, 'queryParams', {});
+    clone.where = _.get(parameters, 'where',{});
+    clone.include = _.get(parameters, 'include');
+    clone.limit = _.get(parameters, 'limit');
+    clone.attributes = _.get(parameters, 'attributes', []);
+    clone.offset = _.get(parameters, 'offset');
+    clone.meta = _.get(parameters,'meta');
+    clone.errors = _.get(parameters, 'errors',[]);
+    clone.orderBy = _.get(parameters, 'orderBy');
+    clone.order = _.get(parameters, 'order');
+    clone.orderProperty = _.get(parameters, 'orderProperty');
+    clone.orderDirection = _.get(parameters,'orderDirection');
     
 
     return clone;

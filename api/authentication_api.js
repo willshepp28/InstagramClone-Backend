@@ -1,18 +1,18 @@
+require('dotenv').config()
+
 const router = require("express").Router();
 const async = require("async");
-const { registerSchema, validateSchema } = require("../helpers/validators/register-validator");
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
+
+const { validateSchema } = require("../helpers/validators/register-validator");
+const { validateLoginSchema } = require("../helpers/validators/login-validator");
+const { comparePasswordtoHash } = require("../helpers/encryption/encrypt");
 const ResponseHelper = require("../app/response_handler");
 const {cloneStateManager} = require("../app/state_manager_helper");
-const { getValidationError } = require("../helpers/validators/validator_error_handler")
-const { SequelizeUniqueContrainstError } = require("../app/error_handler");
+const {  getErrorDefinition } = require("../app/error_handler");
 
 
-/**
- * SIGNUP NEW USER
- * 
- * 1. Validate user input
- * 2. 
- */
 
 router.post("/register", (request, response) => {
   const state = request.state;
@@ -23,7 +23,7 @@ router.post("/register", (request, response) => {
     ValidateUserInput: async.apply(validateSchema, params.email, params.fullName, params.username, params.password),
     ifValidThenRegisterUser: ['ValidateUserInput',(results, callback) => {
       if(results.ValidateUserInput.error) { 
-        callback({name: "Validation Error"})
+        callback({name: "Validation Error", message: results.ValidateUserInput.error.message})
         return;
       }
       services.Authentication.register(cloneStateManager(state, "User", {
@@ -33,23 +33,68 @@ router.post("/register", (request, response) => {
   }
 
   async.auto(tasks, (error, results) => {
-    if(error && error.name === "Validation Error"){
-      ResponseHelper.handleResponse(getValidationError(results.ValidateUserInput.error), state);
+    if(error){
+      ResponseHelper.handleResponse(getErrorDefinition(error), state);
       return;
-    }
-
-    if(error && error.name === "SequelizeDatabaseError"){
-      ResponseHelper.handleResponse(error, state);
-    }
-
-    if(error && error.name === "SequelizeUniqueConstraintError"){
-      ResponseHelper.handleResponse(SequelizeUniqueContrainstError, state)
     }
     
     ResponseHelper.handleResponse(null, results.ifValidThenRegisterUser);
   })
 })
 
+
+
+
+router.post("/login", (request, response) => {
+  const state = request.state;
+  const services = state.application.get("Services");
+  const params = request.body;
+
+  const tasks = {
+    // Always Begin With Initalizing State
+    InitializeUserState: (callback) => {
+      const UserState = cloneStateManager(state, "User");
+      callback(null, UserState)
+    },
+    ValidateUserInput: async.apply(validateLoginSchema, params.email, params.password),
+    IfValidFindUser: ['ValidateUserInput', 'InitializeUserState', (results, callback) => {
+      if(results.ValidateUserInput.error) { 
+        callback({name: "Validation Error", message: results.ValidateUserInput.error.message})
+        return;
+      }
+
+      results.InitializeUserState.where = { email: results.ValidateUserInput.value.email}
+      results.InitializeUserState.attributes.push(["id", "email", "username", "profile_pic", "password"]);
+      services.Authentication.login(results.InitializeUserState, callback);
+    }],
+    IfUserExistsThenComparePasswordToHash: ['IfValidFindUser', (results, callback) => {
+      const user = results.IfValidFindUser.obj;
+
+      if(!user){
+        callback({ name: "Resource Not Found"})
+        return;
+      }
+      comparePasswordtoHash(params.password, user.password).then((data) => {
+          if(!data){ callback({name: "Incorrect Password"})}
+
+          results.InitializeUserState.obj.token = jwt.sign(_.omit(user, ['password', 'createdAt', 'updatedAt']), state.application.get('privateKey'))
+          delete results.InitializeUserState.obj.password;
+          callback(null);
+      })
+    }]
+  }
+
+
+  async.auto(tasks, (error, results) => {
+    if(error){
+      ResponseHelper.handleResponse(getErrorDefinition(error), state);
+      return;
+    }
+    
+    // Always end by passing state
+    ResponseHelper.handleResponse(null, results.InitializeUserState);
+  })
+})
 
 
 

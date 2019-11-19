@@ -18,6 +18,7 @@ const authenticationAPI = require("./api/authentication_api");
 const morgan = require("morgan")
 const cors = require("cors");
 const PORT = process.env.PORT || 4000;
+const fs = require("fs")
 
 
 
@@ -31,6 +32,7 @@ process.on('unhandledRejection', error => {
     console.log(error)
 });
 
+
 application.use(StateManager.initialize);
 application.use(morgan("dev"));
 application.use(bodyParser.json());
@@ -39,6 +41,7 @@ application.use(bodyParser.urlencoded({ extended: false }));
 
 application.use(cors());
 
+application.set("privateKey", fs.readFileSync('./eprivate.key', 'utf8'));
 application.set('ORM', sequelize.sequelize);
 application.set("DataTypes", DataTypes);
 application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequelize"]));

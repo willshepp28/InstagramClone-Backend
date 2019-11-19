@@ -26,8 +26,21 @@ const findById = function(state, callback){
 };
 
 
-const findOne = function(){
+const findOne = function(state, callback){
 
+    const options = {
+        where:  state.where,
+        attributes: state.attributes[0],
+        raw: true
+    }
+
+    state.model.findOne(options).then((data) => {
+        state.obj = data;
+        return callback(null, state)
+    })
+    .catch((error) => {
+        callback(error)
+    })
 }
 
 
