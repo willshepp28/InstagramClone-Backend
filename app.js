@@ -6,14 +6,10 @@ const application = express();
 const bodyParser = require("body-parser");
 const _ = require("lodash");
 const StateManager = require("./app/state_manager")(application);
-const StateHelper = require("./app/state_manager_helper");
 const sequelize = require("./db/models/index");
 const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
 
-const { ErrorHandler, HandleError } = require("./app/error_handler");
-const ResponseHandler = require("./app/response_handler");
-const GeneralService = require("./app/general_service");
 const authenticationAPI = require("./api/authentication_api");
 const morgan = require("morgan")
 const cors = require("cors");
@@ -55,27 +51,15 @@ application.get('/favicon.ico', (request, response) => {
 
 
 
-// Get a User by id
-// application.get("/User/:id", (request, response) => {
-//     const state = request.state;
-//     const UserState = StateHelper.cloneStateManager(state, "User", {
-//         queryParams: {
-//             id: parseInt(request.params.id)
-//         }
-//     });
 
-//     GeneralService.findById(UserState, function(error) {
-//         if(error){
-//             ResponseHandler.handleResponse(error)
-//         }
-//         ResponseHandler.handleResponse(null, UserState)
-//     })
-   
-// });
-
-
-
+/*
+|--------------------------------------------------------------------------
+|  API
+|--------------------------------------------------------------------------
+*/
 application.use("/api/authenticate", authenticationAPI);
+
+
 
 
 
