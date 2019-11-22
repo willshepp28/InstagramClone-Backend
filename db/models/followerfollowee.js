@@ -1,0 +1,26 @@
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const FollowerFollowee = sequelize.define('FollowerFollowee', {
+    follower_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Users",
+        key: "id"
+      }
+    },
+    followee_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Users",
+        key: "id"
+      }
+    }
+  }, {});
+  FollowerFollowee.associate = function(models) {
+    // associations can be defined here
+    FollowerFollowee.belongsTo(User);
+  };
+  return FollowerFollowee;
+};

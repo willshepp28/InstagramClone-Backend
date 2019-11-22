@@ -11,6 +11,8 @@ const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
 
 const authenticationAPI = require("./api/authentication_api");
+const friendsAPI = require("./api/friends_api");
+const { validateToken } = require("./helpers/jwt/verify-token");
 const morgan = require("morgan")
 const cors = require("cors");
 const PORT = process.env.PORT || 4000;
@@ -38,6 +40,7 @@ application.use(bodyParser.urlencoded({ extended: false }));
 application.use(cors());
 
 application.set("privateKey", fs.readFileSync('./eprivate.key', 'utf8'));
+application.set("publicKey", fs.readFileSync('./epublic.key', 'utf8'));
 application.set('ORM', sequelize.sequelize);
 application.set("DataTypes", DataTypes);
 application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequelize"]));
@@ -58,6 +61,8 @@ application.get('/favicon.ico', (request, response) => {
 |--------------------------------------------------------------------------
 */
 application.use("/api/authenticate", authenticationAPI);
+
+application.use("/api/friends", friendsAPI);
 
 
 
