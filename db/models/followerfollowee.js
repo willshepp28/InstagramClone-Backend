@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   FollowerFollowee.associate = function(models) {
     // associations can be defined here
-    FollowerFollowee.belongsTo(User);
+    FollowerFollowee.belongsTo(models.User);
   };
   return FollowerFollowee;
 };

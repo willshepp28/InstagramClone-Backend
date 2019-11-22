@@ -6,8 +6,8 @@ const _ = require("lodash");
 
 
 async function hashManyPasswords(Users){
-    _.map(Users, (user) => {
-      hashPassword(user.password).then((hash) => {
+   await  _.map(Users, (user) => {
+       hashPassword(user.password).then((hash) => {
           user.password = hash;
         })
     });

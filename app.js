@@ -9,6 +9,7 @@ const StateManager = require("./app/state_manager")(application);
 const sequelize = require("./db/models/index");
 const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
+const axios = require("axios");
 
 const authenticationAPI = require("./api/authentication_api");
 const friendsAPI = require("./api/friends_api");
@@ -29,6 +30,8 @@ const fs = require("fs")
 process.on('unhandledRejection', error => {
     console.log(error)
 });
+
+
 
 
 application.use(StateManager.initialize);
