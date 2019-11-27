@@ -46,12 +46,10 @@ const _state = {
 
 
 
- // let URL = `https://pixabay.com/api/?key=${process.env.PIXABAY_APIKEY}&page=2&per_page=200&min_width=500&min_height=500&safesearch=true`;
-let URL = `https://pixabay.com/api/?key=${process.env.PIXABAY_APIKEY}&page=2&per_page=5&min_width=500&min_height=500&safesearch=true`;
-
 
 // loads the pictures, adds them to post array, then invokes addCaption
 const loadPictures = async (picsPerRequest) => {
+    console.log("Setup of posts have started");
     axios.get(`https://pixabay.com/api/?key=${process.env.PIXABAY_APIKEY}&page=2&per_page=${picsPerRequest}&min_width=500&min_height=500&safesearch=true`)
         .then((data) => {
             let images  = data.data.hits;
@@ -73,7 +71,6 @@ const addCaption  = async() => {
     })
 
     await Promise.all(transformedPosts).then(() => {
-        console.log("winning")
         addUserIds();
     });
 }
@@ -104,8 +101,10 @@ const addUserIds = () => {
     })
 
 
-  Promise.all(add);
+  Promise.all(add).then(() => {
+      console.log("Setup of posts complete")
+  });
 
-}
+};
 
 
