@@ -76,5 +76,7 @@ typings/
 .fusebox/
 
 
-/epublic.key
+/epublic.pem
 /eprivate.key
+
+
