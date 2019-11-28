@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { validateToken } = require("../helpers/jwt/verify-token");
 
 
 /* 
@@ -11,8 +12,10 @@ const router = require("express").Router();
 
 
 
-router.get("/discover", (request, response) => {
-    
+router.get("/discover", validateToken,  (request, response) => {
+    return response.status(200).json({
+        message: "You have access to this restricted route"
+    })
 });
 
 
