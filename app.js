@@ -43,7 +43,7 @@ application.use(bodyParser.urlencoded({ extended: false }));
 application.use(cors());
 
 application.set("privateKey", fs.readFileSync('./eprivate.key', 'utf8'));
-application.set("publicKey", fs.readFileSync('./epublic.key', 'utf8'));
+application.set("publicKey", fs.readFileSync('./epublic.pem', 'utf8'));
 application.set('ORM', sequelize.sequelize);
 application.set("DataTypes", DataTypes);
 application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequelize"]));
