@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const {validateToken} = require("../helpers/jwt/verify-token");
 
 
 /* 
@@ -9,19 +8,12 @@ const {validateToken} = require("../helpers/jwt/verify-token");
     4. We need a route to show all posts in the explore page
 
 */
-router.use((request, response, next) => {
-    validateToken(request, response, next);
-})
 
 
 
 router.get("/discover", (request, response) => {
-    response.status(200).json({
-        message: "You are now in the discover route"
-    })
+    
 });
-
-
 
 
 module.exports = router;
