@@ -65,6 +65,15 @@ typings/
 
 # nuxt.js build output
 .nuxt
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore node_modules folder
+node_modules
+
+# Ignore all text files
+*.txt
 
 # vuepress build output
 .vuepress/dist
@@ -79,4 +88,9 @@ typings/
 /epublic.pem
 /eprivate.key
 
+.elasticbeanstalk/
 
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
