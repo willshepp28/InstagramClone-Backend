@@ -10,13 +10,28 @@ const { validateToken } = require("../helpers/jwt/verify-token");
 
 */
 
-
-
-router.get("/discover", validateToken,  (request, response) => {
+router.get("/discover",  (request, response) => {
     return response.status(200).json({
         message: "You have access to this restricted route"
     })
 });
+
+router.get("/undiscover", (request, response) => {
+    return response.status(200).json({
+        message: "You have undiscovered friends"
+    })
+});
+
+router.get("/unfriend", (request, response) => {
+    return response.status(200).json({
+        message: "You are unfriended bro"
+    })
+})
+// router.get("/discover", validateToken,  (request, response) => {
+//     return response.status(200).json({
+//         message: "You have access to this restricted route"
+//     })
+// });
 
 
 module.exports = router;
