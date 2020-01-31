@@ -42,11 +42,11 @@ process.on("uncaughtException", error => {
     process.exit(1);
 })
 
-process.on('unhandledRejection', error => {
-    console.error(error)
-    console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
-    process.exit(1);
-});
+// process.on('unhandledRejection', error => {
+//     console.error(error)
+//     console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
+//     process.exit(1);
+// });
 
 
 
