@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 4000;
 const fs = require("fs")
 
 
-console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
+
 
 
 /*
@@ -28,9 +28,24 @@ console.log(process.env.DATABASE_URL || "This is not using the enviromen t varab
 |  Middleware
 |--------------------------------------------------------------------------
 */
+// process.on("beforeExit", code => {
+//     setTimeout(() => {
+//         console.log(`Process will exit with the code: ${code} `);
+//         console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
+//         process.exit(code);
+//     }, 100)
+// })
+
+process.on("uncaughtException", error => {
+    console.log(error);
+    console.log(process.env.DATABASE_URL)
+    process.exit(1);
+})
 
 process.on('unhandledRejection', error => {
-    console.log(error)
+    console.error(error)
+    console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
+    process.exit(1);
 });
 
 
