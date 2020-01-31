@@ -20,6 +20,8 @@ const PORT = process.env.PORT || 4000;
 const fs = require("fs")
 
 
+console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
+
 
 /*
 |--------------------------------------------------------------------------
