@@ -12,7 +12,7 @@ function create(application){
         state.requestInfo = {
             ip: request.headers["x-forwarded-for"] || request.connection.remoteAddress,
             method: request.method,
-            url: request.url,
+            // url: request.url,
             startTime: Date.now(),
             id: request.id,
             clientRequestId: request.headers["x-request-id"],
