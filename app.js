@@ -16,7 +16,7 @@ const friendsAPI = require("./api/friends_api");
 const { validateToken } = require("./helpers/jwt/verify-token");
 const morgan = require("morgan")
 const cors = require("cors");
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
 const fs = require("fs")
 
 
@@ -53,7 +53,7 @@ process.on("uncaughtException", error => {
 
 
 application.use(StateManager.initialize);
-application.use(morgan("dev"));
+application.use(morgan("combined"));
 application.use(bodyParser.json());
 application.use(bodyParser.urlencoded({ extended: false }));
 
@@ -90,6 +90,10 @@ application.use("/api/friends", friendsAPI);
 
 
 
-application.listen(PORT, (request, response) => {
-    console.log(`Server listening on PORT: ${PORT}`)
-});
+// application.listen(PORT, (request, response) => {
+//     console.log(`Server listening on PORT: ${PORT}`)
+// });
+
+application.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, application.settings.env);
+  });
