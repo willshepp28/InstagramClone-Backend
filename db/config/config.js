@@ -29,6 +29,7 @@ module.exports = {
     use_env_variable: process.env.DATABASE_URL || "none",
     dialect: 'postgres',
     protocol: 'postgres',
+    logging: true,
     dialectOptions: {
       ssl: true
     }
