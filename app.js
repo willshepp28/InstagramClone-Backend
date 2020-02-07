@@ -69,6 +69,10 @@ application.set("Services", require("./app/service_bundler")(application));
 
 
 
+application.get("/", (request, response) => {
+    response.send("You are in the instagram clone api")
+})
+
 application.get('/favicon.ico', (request, response) => {
     response.status(204)
 });
