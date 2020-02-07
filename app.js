@@ -36,11 +36,11 @@ const fs = require("fs")
 //     }, 100)
 // })
 
-process.on("uncaughtException", error => {
-    console.log(error);
-    console.log(process.env.DATABASE_URL)
-    process.exit(1);
-})
+// process.on("uncaughtException", error => {
+//     console.log(error);
+//     console.log(process.env.DATABASE_URL)
+//     process.exit(1);
+// })
 
 // process.on('unhandledRejection', error => {
 //     console.error(error)
