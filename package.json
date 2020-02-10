@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "prod": "npm install && node app",
-    "start": "node app",
+    "start": "npm install && node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {

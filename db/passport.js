@@ -7,13 +7,13 @@ const User = require("../sequelize");
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 
-const BCYPT_SALT_ROUNDS = process.env.BCYPT_SALT_ROUNDS;
+// const BCYPT_SALT_ROUNDS = process.env.BCYPT_SALT_ROUNDS;
 
 
-passport.use("register", new localStrategy({
-    username: "username",
-    password: "password",
-    session: false
-}, (username, password, done) => {
+// passport.use("register", new localStrategy({
+//     username: "username",
+//     password: "password",
+//     session: false
+// }, (username, password, done) => {
     
-}))
+// }))

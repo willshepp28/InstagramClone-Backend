@@ -94,10 +94,9 @@ application.use("/api/friends", friendsAPI);
 
 
 
-// application.listen(PORT, (request, response) => {
-//     console.log(`Server listening on PORT: ${PORT}`)
-// });
+
 
 application.listen(process.env.PORT || 8080, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, application.settings.env);
   });
+
