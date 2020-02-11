@@ -37,7 +37,11 @@ const getErrorDefinition = (error) => {
             return getValidationError(error)
             break;
         case "SequelizeDatabaseError":
-            return new ErrorHandler(500, "Database Error");
+            if(error.message === "relation \"Users\" does not exist") {
+                return new ErrorHandler(404, "User not found")
+            } else {
+                return new ErrorHandler(500, error.message);
+            }
             break;
         case "SequelizeUniqueConstraintError":
             return sequelizeUniqueContrainstError
