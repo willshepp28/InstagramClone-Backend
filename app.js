@@ -76,7 +76,7 @@ if(process.env.NODE_ENV === 'production') {
 
 application.set('ORM', sequelize.sequelize);
 application.set("DataTypes", DataTypes);
-application.set("Models", _.omit(require("./db/models"), ["sequelize", "Sequelize"]));
+application.set("Models", _.omit(require("./db/models/index"), ["sequelize", "Sequelize"]));
 application.set("Services", require("./app/service_bundler")(application));
 
 
