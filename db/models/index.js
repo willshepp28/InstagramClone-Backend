@@ -10,6 +10,8 @@ const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
+  console.log(`This is the node enviroment ${process.env.NODE_ENV}`);
+  console.log(`Checking that the env variable is there ${process.env}`);
   console.log(process.env[config.use_env_variable]);
   console.log(`This is the config.use_env_variable ${config.use_env_variable}`)
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
