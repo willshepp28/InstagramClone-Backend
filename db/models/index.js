@@ -16,7 +16,7 @@ if (config.use_env_variable) {
   console.log(`This is the node enviroment ${process.env.NODE_ENV}`);
   console.log(process.env[config.use_env_variable]);
   console.log(`This is the config.use_env_variable ${config.use_env_variable}`)
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env.DATABASE_URL, config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
