@@ -42,10 +42,10 @@ const fs = require("fs")
 //     process.exit(1);
 // })
 
-process.on('unhandledRejection', (reason, promise) => {
-    console.log('Unhandled Rejection at:', reason.stack || reason);
-    process.exit(1);
-  })
+// process.on('unhandledRejection', (reason, promise) => {
+//     console.log('Unhandled Rejection at:', reason.stack || reason);
+//     process.exit(1);
+//   })
 
 process.on('unhandledRejection', error => {
     console.error(error)
