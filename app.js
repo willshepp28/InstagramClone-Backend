@@ -19,7 +19,7 @@ const cors = require("cors");
 // const PORT = process.env.PORT || 4000;
 const fs = require("fs")
 
-console.log("checking f")
+console.log("checking fs")
 
 
 
