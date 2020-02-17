@@ -42,11 +42,17 @@ const fs = require("fs")
 //     process.exit(1);
 // })
 
-// process.on('unhandledRejection', error => {
-//     console.error(error)
-//     console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
-//     process.exit(1);
-// });
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('Unhandled Rejection at:', reason.stack || reason);
+    process.exit(1);
+  })
+
+process.on('unhandledRejection', error => {
+    console.error(error)
+    console.log("a unhandled rejection ")
+    console.log(process.env.DATABASE_URL || "This is not using the enviromen t varable")
+    process.exit(1);
+});
 
 
 
@@ -102,7 +108,7 @@ application.use("/api/friends", friendsAPI);
 
 
 
-application.listen(process.env.PORT || 8080, function(){
+application.listen(process.env.PORT || 4000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, application.settings.env);
   });
 
