@@ -6,7 +6,8 @@
   "scripts": {
     "prod": "npm install && node app",
     "start": "node app && echo \"Success: Server successfully started on port \" + $DATABASE_URL",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push_heroku": "git add . && git commit -m 'testing' && git push heroku master && heroku ps:scale web=1"
   },
   "engines": {
     "node": "11.13.0"
