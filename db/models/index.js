@@ -10,7 +10,7 @@ const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
-  console.log(process.env["production"]);
+  console.log(process.env["NODE_ENV"]);
   console.log(`This is the use enviroment variable ${process.env.DATABASE_URL}`);
   console.log(typeof process.env.DATABASE_URL);
   console.log(`This is the node enviroment ${process.env.NODE_ENV}`);
