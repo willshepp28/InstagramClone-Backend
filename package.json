@@ -7,7 +7,7 @@
     "prod": "npm install && node app",
     "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "push_heroku": "git add . && git commit -m 'testing' && git push heroku master && heroku ps:scale web=1 && heroku open"
+    "push_heroku": "git add . && git commit -m 'updating app' && git push heroku master && heroku ps:scale web=1 && heroku open"
   },
   "engines": {
     "node": "11.13.0"

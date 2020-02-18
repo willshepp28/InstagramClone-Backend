@@ -10,13 +10,14 @@ const StateManager = require("./app/state_manager")(application);
 const sequelize = require("./db/models/index");
 const DataTypes = require('sequelize');
 DataTypes.validator = require("validator");
+const models = require("./db/models")
 
 const authenticationAPI = require("./api/authentication_api");
 const friendsAPI = require("./api/friends_api");
 const { validateToken } = require("./helpers/jwt/verify-token");
 const morgan = require("morgan")
 const cors = require("cors");
-// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 const fs = require("fs")
 
 console.log("checking fs")
@@ -109,7 +110,12 @@ application.use("/api/friends", friendsAPI);
 
 
 
-application.listen(process.env.PORT || 4000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, application.settings.env);
-  });
+// application.listen(process.env.PORT || 4000, function(){
+//     console.log("Express server listening on port %d in %s mode", this.address().port, application.settings.env);
+//   });
 
+  models.sequelize.sync().then(function() {
+    application.listen(PORT, () => {
+        console.log(`Server listening on port ${PORT}`)
+    });
+  });
