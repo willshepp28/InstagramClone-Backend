@@ -17,7 +17,7 @@ const {  getErrorDefinition } = require("../app/error_handler");
 router.post("/register", (request, response) => {
   const state = request.state;
   const services = state.application.get("Services");
-  const params = request.body;
+  const params = JSON.parse(request.body);
 
   console.log("now logging all parameters")
   console.log(params);
