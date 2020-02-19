@@ -21,6 +21,7 @@ router.post("/register", (request, response) => {
 
   console.log("now logging all parameters")
   console.log(params);
+  console.log(`This users email is ${params.email}`)
 
 
   const tasks = {
