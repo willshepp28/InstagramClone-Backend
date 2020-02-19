@@ -19,6 +19,10 @@ router.post("/register", (request, response) => {
   const services = state.application.get("Services");
   const params = request.body;
 
+  console.log("now logging all parameters")
+  console.log(params);
+
+
   const tasks = {
     ValidateUserInput: async.apply(validateSchema, params.email, params.fullName, params.username, params.password),
     ifValidThenRegisterUser: ['ValidateUserInput',(results, callback) => {
