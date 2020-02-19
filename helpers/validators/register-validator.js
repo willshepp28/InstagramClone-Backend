@@ -9,6 +9,7 @@ const registerSchema = Joi.object({
 
 
 const validateSchema = async (email, fullName, username, password, callback) => {
+    console.lop(email);
     const {error, value} = registerSchema.validate({
         email: email,
         fullName: fullName,
