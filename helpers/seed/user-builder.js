@@ -19,7 +19,9 @@ async function getUsers() {
                  fullName: `${user.name.first} ${user.name.last}`, 
                  username: user.login.username, 
                  profile_pic: user.picture.medium,
-                 password: process.env.SEED_USER_PASSWORD
+                 password: process.env.SEED_USER_PASSWORD,
+                 createdAt: new Date(),
+                 updatedAt: new Date()
              })
         })
         return seeds;
