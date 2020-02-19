@@ -43,7 +43,7 @@ process.on('unhandledRejection', (reason, promise) => {
 application.use(StateManager.initialize);
 application.use(morgan("combined"));
 application.use(bodyParser.json());
-application.use(bodyParser.urlencoded({ extended: false }));
+application.use(bodyParser.urlencoded());
 
 
 application.use(cors());
