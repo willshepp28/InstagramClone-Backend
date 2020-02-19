@@ -114,7 +114,7 @@ application.use("/api/friends", friendsAPI);
 //     console.log("Express server listening on port %d in %s mode", this.address().port, application.settings.env);
 //   });
 
-  models.sequelize.sync().then(function() {
+ models.sequelize.sync().then(function() {
     application.listen(PORT, () => {
         console.log(`Server listening on port ${PORT}`)
     });
