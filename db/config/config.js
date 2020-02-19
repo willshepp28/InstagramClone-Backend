@@ -18,7 +18,7 @@ module.exports = {
     dialect: 'postgres'
   },
   production: {
-    use_env_variable: process.env.DATABASE_URL,
+    use_env_variable: process.env.DATABASE_URL || "kdkfja;",
     dialect: 'postgres',
     protocol: 'postgres',
     logging: true,
