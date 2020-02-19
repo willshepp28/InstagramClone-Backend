@@ -12,9 +12,6 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
-  console.log(`This is the username ${config.username}`)
-  console.log(`This is the database ${config.database}`)
-  console.log(config.username)
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
