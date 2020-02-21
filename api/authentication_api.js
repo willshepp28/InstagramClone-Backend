@@ -80,7 +80,9 @@ router.post("/login", (request, response) => {
         return;
       }
       comparePasswordtoHash(params.password, user.password).then((data) => {
-          if(!data){ callback({name: "Incorrect Password"})}
+          if(!data){
+             return callback({name: "Incorrect Password"})
+          }
 
           results.InitializeUserState.obj.token = jwt.sign(_.omit(user, ['password', 'createdAt', 'updatedAt']), state.application.get('privateKey'), { algorithm: 'RS256'})
           delete results.InitializeUserState.obj.password;
