@@ -30,7 +30,6 @@ const _state = {
     count: 0,
     user_id: 1,
     totalUserIds: 6,
-    totalPosts: 12,
     loremIpsum: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     resetCount: () => {
         _state.count = 0;
@@ -48,16 +47,22 @@ const _state = {
 
 
 // loads the pictures, adds them to post array, then invokes addCaption
-const loadPictures = async (picsPerRequest) => {
-    console.log("Setup of posts have started");
-    axios.get(`https://pixabay.com/api/?key=${process.env.PIXABAY_APIKEY}&page=2&per_page=${picsPerRequest}&min_width=500&min_height=500&safesearch=true`)
+const loadPictures = async (amountOfUsers) => {
+
+    _state.totalUserIds = amountOfUsers;
+    const picsToRender = amountOfUsers * 2; // to assign 2 posts for each user in the db we need to render at least double the amount of users passed in
+ 
+    return axios.get(`https://pixabay.com/api/?key=${process.env.PIXABAY_APIKEY}&page=2&per_page=${picsToRender}&min_width=500&min_height=500&safesearch=true`)
         .then((data) => {
+           
             let images  = data.data.hits;
             images.map(async(image) => {
                 await _state.posts.push({ photo: image.largeImageURL});
             })
-        }).then(() => { 
-            addCaption();
+        }).then(async () => { 
+            await addCaption();
+        }).then(() => {
+            return _state.posts;
         })
 };
 
@@ -65,6 +70,7 @@ const loadPictures = async (picsPerRequest) => {
 // lopping over posts to give a caption to each picture
 const addCaption  = async() => {
     const transformedPosts = _state.posts.map(async(post) => {
+        // console.log(post);
         const captions = await createCaption(post.photo);
 
         post.caption = await captions.output.captions[0].caption || captions.output.captions[2].caption || loremIpsum  ;
@@ -95,7 +101,8 @@ const addUserIds = () => {
                 _state.resetCount();
                 _state.moveToNextUserId();
             }
-            post.user_id = _state.user_id;
+            // post.user_id = _state.user_id;
+            _state.posts[index].user_id = _state.user_id;
         } 
         _state.addCount();
     })
@@ -108,3 +115,4 @@ const addUserIds = () => {
 };
 
 
+module.exports = loadPictures;
