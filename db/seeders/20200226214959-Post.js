@@ -16,8 +16,8 @@ module.exports = {
       }], {});
     */
 
-  return User.count().then(count => {
-    return loadPictures(2).then(posts => {
+  return User.count().then(totalUsers => {
+    return loadPictures(totalUsers).then(posts => {
       console.log(posts);
       return queryInterface.bulkInsert("Posts", posts,{})
     })

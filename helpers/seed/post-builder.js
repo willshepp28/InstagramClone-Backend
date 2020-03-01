@@ -103,6 +103,7 @@ const addUserIds = () => {
             }
             // post.user_id = _state.user_id;
             _state.posts[index].user_id = _state.user_id;
+            addCreatedAndUpdateDates(index);
         } 
         _state.addCount();
     })
@@ -114,5 +115,10 @@ const addUserIds = () => {
 
 };
 
+
+const addCreatedAndUpdateDates = (index) => {
+    _state.posts[index].createdAt = new Date();
+    _state.posts[index].updatedAt = new Date();
+}
 
 module.exports = loadPictures;
