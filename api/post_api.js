@@ -6,9 +6,11 @@ const async = require("async");
 
 
 
-router.get("/", (request, response) => {
-    const state = request.state;
-    const services = state.application.get("services");
+router.get("/getPosts", (request, response) => {
+   return response.json([
+       {id: 1, user_id: 2, photo: "www.google.com", caption: "This is google"},
+       {id: 3, user_id: 5, photo: "www.facebook.com", caption: "This is facebook"}
+   ])
     
 })
 

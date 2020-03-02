@@ -14,6 +14,7 @@ const models = require("./db/models")
 
 const authenticationAPI = require("./api/authentication_api");
 const friendsAPI = require("./api/friends_api");
+const postAPI = require("./api/post_api");
 const { validateToken } = require("./helpers/jwt/verify-token");
 const morgan = require("morgan")
 const cors = require("cors");
@@ -65,6 +66,9 @@ application.set("Services", require("./app/service_bundler")(application));
 
 
 application.get("/", (request, response) => {
+    // models.Post.findAll().then(posts => {
+    //     return response.json(posts);
+    // })
     response.send("You are in the instagram clone api")
 })
 
@@ -84,6 +88,8 @@ application.use("/api/authenticate", authenticationAPI);
 
 application.use("/api/friends", friendsAPI);
 
+application.use("/api/posts", postAPI);
+
 
 
 
@@ -93,8 +99,8 @@ application.use("/api/friends", friendsAPI);
 |  START SERVER
 |--------------------------------------------------------------------------
 */
- models.sequelize.sync().then(function() {
+ //models.sequelize.sync().then(function() {
     application.listen(PORT, () => {
         console.log(`Server listening on port ${PORT}`)
     });
-  });
+ // });
