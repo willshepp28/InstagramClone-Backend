@@ -16,6 +16,14 @@ module.exports = {
           key: "id"
         }
       },
+      follower_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id"
+        }
+      },
       request_accepted: {
         allowNull: false,
         type: Sequelize.BOOLEAN
