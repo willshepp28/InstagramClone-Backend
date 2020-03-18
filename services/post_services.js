@@ -1,12 +1,19 @@
+const GeneralService = require("../app/general_service");
+
 const Post = function(){
 
     const findById = (state, callback) => {
-        return {id: 1, caption: "Life is good"}
+        GeneralService.findById(state,callback);
+    }; 
+
+    const getAll = (state, callback) => {
+        
     }
 
 
     return {
-        findById
+        findById,
+        getAll
     }
 }
 

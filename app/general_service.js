@@ -14,6 +14,17 @@ const create = function(state, callback){
 }
 
 
+const findAll = function(state, callback) {
+    state.model.findAll().then((data) => {
+        console.log(data);
+        callback(null, data)
+    })
+    .catch((error) => {
+        callback(error);
+    })
+}
+
+
 const findById = function(state, callback){
     const where = _.merge(state.queryParams, state.where);
     state.model.findOne({where}).then((data) => {
@@ -57,6 +68,7 @@ const update = function(){
 
 module.exports = {
     create,
+    findAll,
     findById,
     findOne,
     query,
