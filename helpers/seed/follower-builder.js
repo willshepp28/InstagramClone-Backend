@@ -56,11 +56,11 @@ const _state = {
 
 
     /**
-     * This function essentially loops over each user in the database and adds 6 users to each account
+     * This function essentially loops over each user in the database and adds 6 followers to each account
      * 
      * Used for intial seeding purposes only
      */
-function createFollowers(totalUsersInDB){
+async function createFollowers(totalUsersInDB){
 
 
    _state.totalUsersInDB = totalUsersInDB;
@@ -92,6 +92,8 @@ function createFollowers(totalUsersInDB){
         _state.offset = newOffset;
     
    }
+
+   return _state.followers;
 
 };
 

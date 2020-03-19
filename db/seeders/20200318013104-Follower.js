@@ -1,6 +1,7 @@
 'use strict';
 
 const { User } = require("../models");
+const createFollowers = require("../../helpers/seed/follower-builder");
 
 /**
  * 
@@ -29,9 +30,10 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-
     return User.count().then(totalUsers => {
-
+      return createFollowers(totalUsers).then((followers) => {
+        return queryInterface.bulkInsert("Followers", followers,{})
+      })
     });
   },
 
