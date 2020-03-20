@@ -8,9 +8,9 @@ const handleResponse = (error, state) => {
     }
 
     const statusCode = error ? error.httpStatusCode: 200;
-    const data = error? error.message :state.obj;
+    const data = error ? error.message : state.obj || state;
 
-    state.response.status(statusCode).json(data)
+    return state.response.status(statusCode).json(data)
 }
 
 

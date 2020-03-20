@@ -1,6 +1,13 @@
 const _ = require("lodash");
 
 
+const getQueryFilters = (state) => {
+    return {
+        includes: state.includes,
+        where: state.where,
+        order: state.order
+    }
+}
 
 // We use the model located on the state object, then create a with the values placed on the state.data object
 const create = function(state, callback){
@@ -9,18 +16,20 @@ const create = function(state, callback){
         state.obj = { status: "OK"};
          return callback(null, state)
     }).catch(error => {
-        callback(error)
+        return callback(error)
     });
 }
 
 
 const findAll = function(state, callback) {
-    state.model.findAll().then((data) => {
-        console.log(data);
-        callback(null, data)
+    let filters = getQueryFilters(state);
+
+    state.model.findAll(filters).then((data) => {
+        state.obj = data
+        return callback(null, state)
     })
     .catch((error) => {
-        callback(error);
+        return callback(error);
     })
 }
 
@@ -29,10 +38,10 @@ const findById = function(state, callback){
     const where = _.merge(state.queryParams, state.where);
     state.model.findOne({where}).then((data) => {
         state.obj = data.dataValues;
-        callback(null, state);
+        return callback(null, state);
     })
     .catch((error) =>{
-        callback(error);
+        return callback(error);
     })
 };
 
@@ -50,7 +59,7 @@ const findOne = function(state, callback){
         return callback(null, state)
     })
     .catch((error) => {
-        callback(error)
+        return callback(error)
     })
 }
 

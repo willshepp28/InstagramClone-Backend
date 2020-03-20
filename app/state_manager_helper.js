@@ -14,7 +14,7 @@ const cloneStateManager = function(state, model, parameters){
         clone.params = state.params;
     }
 
-    if(model){
+    if(model){ 
         clone.model = state.application.get("Models")[model]
     }
 

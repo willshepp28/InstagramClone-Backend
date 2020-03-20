@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const async = require("async");
 const { validateToken } = require("../helpers/jwt/verify-token")
-
+const ResponseHelper = require("../app/response_handler");
 
 
 
@@ -24,15 +24,25 @@ router.get("/getPosts", validateToken, (request, response) => {
      *  5. Posts should include date
      */
 
+
     const tasks = {
-        GetPosts: async.apply(services.Post)
+
+        // get all user_ids of accounts that we are following
+        UserIdsOfAccountsBeingFollowed: async.apply(services.Follower.GetAllIdsOfAccountsUserIsFollowing, state, user.id)
     };
 
-   
-   return response.json([
-       {id: 1, user_id: 2, photo: "www.google.com", caption: "This is google"},
-       {id: 3, user_id: 5, photo: "www.facebook.com", caption: "This is facebook"}
-   ])
+   async.auto(tasks, (error, results) => {
+    console.log(error)
+    if(error){
+        return ResponseHelper.handleResponse(error, state)
+    }
+
+    return ResponseHelper.handleResponse(null, results.UserIdsOfAccountsBeingFollowed)
+   })
+//    return response.json([
+//        {id: 1, user_id: 2, photo: "www.google.com", caption: "This is google"},
+//        {id: 3, user_id: 5, photo: "www.facebook.com", caption: "This is facebook"}
+//    ])
     
 });
 
